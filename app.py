@@ -13,10 +13,8 @@ st.markdown(
         [data-testid=stSidebar] [data-testid=stImage]{
             text-align: center;
             display: block;
-            margin-top: 0px;
             margin-left: auto;
             margin-right: auto;
-            padding-top: 0px;
             width: 100%;
         }
     </style>
