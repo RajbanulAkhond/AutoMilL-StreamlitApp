@@ -39,13 +39,12 @@ if choice == "Extract Data":
         uploaded_files = st.file_uploader("Choose your excel files", accept_multiple_files=True)
         submitted = st.form_submit_button("UPLOAD")
     if submitted and uploaded_files is not None:
-        st.write("UPLOADED!")
+        st.success("UPLOADED!")
     if st.button('Extract Data'):
         st.session_state.raw_data = extract(uploaded_files)
         # Display the raw_data array
         st.dataframe(st.session_state.raw_data)
         st.success('Data extracted successfully')
-
     # Save the raw_data array to a CSV file
     st.info('Save the extracted raw data as a CSV file for cleaning', icon="ℹ️")
     if st.button('Save to CSV file'):
@@ -55,9 +54,7 @@ if choice == "Extract Data":
         with open('raw_data.csv') as f:
             st.download_button('Download CSV', f, file_name='raw_data.csv')
 
-
 if choice == "Clean Data":
-
     st.title('Data Cleaning Module')
     st.info('Upload your raw data or use saved data for cleaning', icon="ℹ️")
     file = st.file_uploader("Upload Your Raw Dataset")
@@ -85,7 +82,6 @@ if choice == "Clean Data":
         with open('clean_data.csv') as f:
             st.download_button('Download CSV', f, file_name='clean_data.csv')
 
-
 if choice == "Upload Clean Data":
     st.title("Upload Your Clean Dataset")
     st.info('Upload your clean data or use saved data for profiling', icon="ℹ️")
@@ -102,7 +98,9 @@ if choice == "Data Profiling":
         st.stop()
     profile_df = st.session_state.clean_data.profile_report()
     if st.button('Generate Data Profile'):
-        profile_df.to_file('profile_report.html')
+        with st.spinner('Wait for it...'):
+            profile_df.to_file('profile_report.html')
+        st.success('Done!')
         with open('profile_report.html', 'rb') as f:
             st.download_button('Download Report', f, file_name='profile_report.html')
     if st.button('Show Data Profile'):
@@ -110,9 +108,7 @@ if choice == "Data Profiling":
 
 if choice == "Modelling":
     st.title("Explore ML Models")
-    st.info(
-        'Generate machine learning models using uploaded or saved clean data', icon="ℹ️")
-    st.info('Compare and save the best model', icon="ℹ️")
+    st.info('Generate machine learning models using uploaded or saved clean data', icon="ℹ️")
     if 'clean_data' not in st.session_state:
         st.error('Extract or upload clean data', icon="🚨")
         st.stop()
@@ -120,11 +116,13 @@ if choice == "Modelling":
         'Choose the Target Column', st.session_state.clean_data.columns)
     if st.button('Run Modelling'):
         setup(st.session_state.clean_data, target=chosen_target, silent=True)
+        st.info('Model settings:')
         setup_df = pull()
         st.dataframe(setup_df)
         best_model = compare_models()
+        st.info('Compare and save the best model:')
         compare_df = pull()
         st.dataframe(compare_df)
         save_model(best_model, 'best_model')
         with open('best_model.pkl', 'rb') as f:
-            st.download_button('Download Model', f, file_name="best_model.pkl")
+            st.download_button('Download Best Model', f, file_name="best_model.pkl")
