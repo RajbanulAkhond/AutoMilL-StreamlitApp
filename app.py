@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from pycaret.regression import setup, compare_models, pull, save_model
 import pandas as pd
