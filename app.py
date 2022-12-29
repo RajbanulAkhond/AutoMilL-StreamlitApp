@@ -52,6 +52,8 @@ if choice == "Extract Data":
         st.session_state.raw_data.to_csv('raw_data.csv', index=False)
         st.dataframe(st.session_state.raw_data)
         st.success('Raw data saved to CSV file')
+        with open('raw_data.csv') as f:
+            st.download_button('Download CSV', f, file_name='raw_data.csv')
 
 
 if choice == "Clean Data":
@@ -80,6 +82,8 @@ if choice == "Clean Data":
         st.session_state.clean_data.to_csv('clean_data.csv', index=False)
         st.dataframe(st.session_state.clean_data)
         st.success('Clean data saved to CSV file')
+        with open('clean_data.csv') as f:
+            st.download_button('Download CSV', f, file_name='clean_data.csv')
 
 
 if choice == "Upload Clean Data":
@@ -92,15 +96,17 @@ if choice == "Upload Clean Data":
 
 if choice == "Data Profiling":
     st.title("Exploratory Data Analysis")
-    st.info('Generate pandas data profile report using uploaded or saved clean data', icon="ℹ️")
-    st.info('The report will be saved automatically as a html file', icon="ℹ️")
+    st.info('Generate and download pandas data profile report using uploaded or saved clean data', icon="ℹ️")
     if 'clean_data' not in st.session_state:
         st.error('Extract or upload clean data', icon="🚨")
         st.stop()
     profile_df = st.session_state.clean_data.profile_report()
+    if st.button('Generate Data Profile'):
+        profile_df.to_file('profile_report.html')
+        with open('profile_report.html', 'rb') as f:
+            st.download_button('Download Report', f, file_name='profile_report.html')
     if st.button('Show Data Profile'):
         st_profile_report(profile_df)
-        profile_df.to_file('profile_report.html')
 
 if choice == "Modelling":
     st.title("Explore ML Models")
