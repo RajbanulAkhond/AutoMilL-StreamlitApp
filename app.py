@@ -34,10 +34,14 @@ if st.sidebar.button("Clear Session State"):
 if choice == "Extract Data":
     st.title('Data Extraction')
     # Select the directory containing the Excel files
-    st.info('Input directory name containing the EAF report excel files', icon="ℹ️")
-    directory = st.text_input('Enter the directory path:')
+    st.info('Upload your EAF report excel files', icon="ℹ️")
+    with st.form("file_upload-form", clear_on_submit=True):
+        uploaded_files = st.file_uploader("Choose your excel files", accept_multiple_files=True)
+        submitted = st.form_submit_button("UPLOAD")
+    if submitted and uploaded_files is not None:
+        st.write("UPLOADED!")
     if st.button('Extract Data'):
-        st.session_state.raw_data = extract(directory)
+        st.session_state.raw_data = extract(uploaded_files)
         # Display the raw_data array
         st.dataframe(st.session_state.raw_data)
         st.success('Data extracted successfully')

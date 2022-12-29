@@ -2,9 +2,9 @@ import os
 import numpy as np
 import pandas as pd
 
-def extract(directory):
+
+def extract(uploaded_files):
     # FULLY AUTOMATED FILE SELECTION
-    file_list = sorted([f for f in os.listdir(directory) if f.endswith('.xls')])
     data1_start_row = 4
     data1_cols = [0, 13, 22, 25, 27, 31, 33, 35, 37, 40, 42, 44]
     data2_cols = [3, 5, 7, 9, 13, 15, 20, 23, 26, 29, 32, 34, 36, 38, 41]
@@ -13,9 +13,8 @@ def extract(directory):
     data1 = np.empty((0, len(data1_cols)))
     data2 = np.empty((0, len(data2_cols)))
     # Loop through all files
-    for filename in file_list:
-        filepath = os.path.join(directory, filename)
-        df = pd.read_excel(filepath)
+    for uploaded_file in uploaded_files:
+        df = pd.read_excel(uploaded_file)
 
         cmp_range = df.iloc[:100, 0]
         idx = cmp_range.index[cmp_range == 'GENERAL'].tolist()[-1] if 'GENERAL' in cmp_range.values else len(cmp_range)
