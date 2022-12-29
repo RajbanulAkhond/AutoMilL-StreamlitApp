@@ -1,8 +1,5 @@
-from operator import index
 import streamlit as st
-import numpy as np
-from pycaret.regression import setup, compare_models, pull, save_model, load_model
-import pandas_profiling
+from pycaret.regression import setup, compare_models, pull, save_model
 import pandas as pd
 from streamlit_pandas_profiling import st_profile_report
 from helper import *
@@ -36,7 +33,8 @@ if choice == "Extract Data":
     # Select the directory containing the Excel files
     st.info('Upload your EAF report excel files', icon="ℹ️")
     with st.form("file_upload-form", clear_on_submit=True):
-        uploaded_files = st.file_uploader("Choose your excel files", accept_multiple_files=True)
+        uploaded_files = st.file_uploader(
+            "Choose your excel files", accept_multiple_files=True)
         submitted = st.form_submit_button("UPLOAD")
     if submitted and uploaded_files is not None:
         st.success("UPLOADED!")
@@ -88,7 +86,7 @@ if choice == "Upload Clean Data":
     file = st.file_uploader("Upload Your Dataset")
     if file:
         st.session_state.clean_data = pd.read_csv(file, index_col=None)
-        st.dataframe(clean_data)
+        st.dataframe(st.session_state.clean_data)
 
 if choice == "Data Profiling":
     st.title("Exploratory Data Analysis")
@@ -102,13 +100,15 @@ if choice == "Data Profiling":
             profile_df.to_file('profile_report.html')
         st.success('Done!')
         with open('profile_report.html', 'rb') as f:
-            st.download_button('Download Report', f, file_name='profile_report.html')
+            st.download_button('Download Report', f,
+                               file_name='profile_report.html')
     if st.button('Show Data Profile'):
         st_profile_report(profile_df)
 
 if choice == "Modelling":
     st.title("Explore ML Models")
-    st.info('Generate machine learning models using uploaded or saved clean data', icon="ℹ️")
+    st.info(
+        'Generate machine learning models using uploaded or saved clean data', icon="ℹ️")
     if 'clean_data' not in st.session_state:
         st.error('Extract or upload clean data', icon="🚨")
         st.stop()
@@ -125,4 +125,5 @@ if choice == "Modelling":
         st.dataframe(compare_df)
         save_model(best_model, 'best_model')
         with open('best_model.pkl', 'rb') as f:
-            st.download_button('Download Best Model', f, file_name="best_model.pkl")
+            st.download_button('Download Best Model', f,
+                               file_name="best_model.pkl")
