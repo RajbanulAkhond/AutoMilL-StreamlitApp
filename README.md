@@ -3,9 +3,10 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=rajbanulakhond&label=Profile%20views&color=0e75b6&style=flat" alt="rajbanulakhond" /> </p>
 
-<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=rajbanulakhond" alt="rajbanulakhond" /></a> </p>
 
 - 🔭 I’m currently working on [Automated Pipeline for Industries who want to use ML in their data analysis workflow using Streamlit](https://github.com/RajbanulAkhond/StreamlitApp)
+  - Go to https://rajbanulakhond-autosteelml.streamlit.app/ to access the Streamlit App
+  - To test the app use the provided dataset in the repo named 
 
 - 🌱 I’m currently learning **Machine learning frameworks**
 
