@@ -4,8 +4,8 @@
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=rajbanulakhond&label=Profile%20views&color=0e75b6&style=flat" alt="rajbanulakhond" /> </p>
 
 
-- 🔭 I’m currently working on [Automated Pipeline for Industries who want to use ML in their data analysis workflow using Streamlit](https://github.com/RajbanulAkhond/StreamlitApp)
-  - Go to https://rajbanulakhond-autosteelml.streamlit.app/ to access the Streamlit App
+- 🔭 I’m currently working on [Automated Pipeline for Industries who want to use ML in their data analysis workflow using Streamlit](https://github.com/RajbanulAkhond/AutoMilL-StreamlitApp)
+  - Go to https://automill.streamlit.app/ to access the Streamlit App
   - To test the app: use the provided dataset in the repo named "Sample_data". Download the folder and upload them as raw data in the app
   - To modify the app: modify the main app file named "app.py" containing the app struture and behavior code. To modify and add features related
     to ML: modify the "helper.py" file.
