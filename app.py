@@ -21,7 +21,7 @@ st.markdown(
 
 with st.sidebar:
     st.image("https://i.ibb.co/SKjmS7K/Streamlit-app-logo-2-45.jpg")
-    st.title("AutoSteelML")
+    st.title("AutoMilL")
     choice = st.radio("Navigation", [
                       "Extract Data", "Clean Data", "Upload Clean Data", "Data Profiling", "Modelling"])
     st.info("This automated ML pipe-line application helps you extract and explore your EAF data")
