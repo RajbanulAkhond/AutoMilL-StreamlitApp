@@ -116,7 +116,7 @@ if choice == "Modelling":
     chosen_target = st.selectbox(
         'Choose the Target Column', st.session_state.clean_data.columns)
     if st.button('Run Modelling'):
-        setup(st.session_state.clean_data, target=chosen_target, silent=True)
+        setup(st.session_state.clean_data, target=chosen_target, remove_outliers = True)
         st.info('Model settings:')
         setup_df = pull()
         st.dataframe(setup_df)
